@@ -1,0 +1,64 @@
+try {
+	gs.info("Update Vulnerable Item Aging Status Scheduled Job Starting!");
+	var grVI_Closed = new GlideRecord('sn_vul_vulnerable_item');	
+	grVI_Closed.addEncodedQuery('u_aging_status!=Closed^stateIN3,101');
+	grVI_Closed.query();
+	gs.info("Aging Status Closed RowCount = " + grVI_Closed.getRowCount());
+	grVI_Closed.setValue('u_aging_status', 'Closed');
+	grVI_Closed.autoSysFields(false);
+	grVI_Closed.setWorkflow(false);	
+	grVI_Closed.updateMultiple();
+	
+	var grVI_Deferred = new GlideRecord('sn_vul_vulnerable_item');	
+	grVI_Deferred.addEncodedQuery('u_aging_status!=Deferred^state=12');
+	grVI_Deferred.query();
+	gs.info("Aging Status Deferred RowCount = " + grVI_Deferred.getRowCount());
+	grVI_Deferred.setValue('u_aging_status', 'Deferred');
+	grVI_Deferred.autoSysFields(false);
+	grVI_Deferred.setWorkflow(false);	
+	grVI_Deferred.updateMultiple();	
+	
+	var grVI_Nearing = new GlideRecord('sn_vul_vulnerable_item');	
+	grVI_Nearing.addEncodedQuery('u_aging_status!=Nearing Due Date^stateNOT IN3,12,101^due_dateRELATIVELE@dayofweek@ahead@60^due_date>=javascript:gs.beginningOfToday()');
+	grVI_Nearing.query();
+	gs.info("Aging Status Nearing RowCount = " + grVI_Nearing.getRowCount());
+	grVI_Nearing.setValue('u_aging_status', 'Nearing Due Date');
+	grVI_Nearing.autoSysFields(false);
+	grVI_Nearing.setWorkflow(false);	
+	grVI_Nearing.updateMultiple();	
+	
+	var grVI_Overdue = new GlideRecord('sn_vul_vulnerable_item');	
+	grVI_Overdue.addEncodedQuery('u_aging_status!=Overdue^stateNOT IN3,12,101^due_date<javascript:gs.daysAgoStart(0)');
+	grVI_Overdue.query();
+	gs.info("Aging Status Overdue RowCount = " + grVI_Overdue.getRowCount());
+	grVI_Overdue.setValue('u_aging_status', 'Overdue');
+	grVI_Overdue.autoSysFields(false);
+	grVI_Overdue.setWorkflow(false);	
+	grVI_Overdue.updateMultiple();	
+	
+	var grVI_Conforming = new GlideRecord('sn_vul_vulnerable_item');	
+	grVI_Conforming.addEncodedQuery('u_aging_status!=Conforming^stateNOT IN3,12,101^due_dateRELATIVEGT@dayofweek@ahead@60');
+	grVI_Conforming.query();
+	gs.info("Aging Status Conforming RowCount = " + grVI_Conforming.getRowCount());
+	grVI_Conforming.setValue('u_aging_status', 'Conforming');
+	grVI_Conforming.autoSysFields(false);
+	grVI_Conforming.setWorkflow(false);	
+	grVI_Conforming.updateMultiple();		
+	
+	gs.info("Update Vulnerable Item Aging Status Scheduled Job Complete!");
+} catch(ex) {
+	var ln = (ex.lineNumber) ? ex.lineNumber : "N/A";
+	gs.warn("Caught exception in Update Vulnerable Item Aging Status Scheduled Job on line number: " + ln);
+	gs.warn(ex);
+	var errorMessage;
+	if (ex.name && ex.message)
+		errorMessage = ex.name + ": " + ex.message + " | Line Number: " + ln;
+	else if (ex.message)
+		errorMessage = ex.message + " | Line Number: " + ln;
+	else 
+		errorMessage = "Unknown error occurred." + " | Line Number: " + ln;
+	gs.warn(errorMessage);			
+} finally {
+	grSysLog = undefined;
+	sl = undefined;
+}
