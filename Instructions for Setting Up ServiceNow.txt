@@ -36,9 +36,9 @@ Apply Update Sets
 
 17. Repeat steps 8 - 16 for "MGT516-Vulnerability.xml"
 
-18. Type "Solution Definitions" in the "Filter Navigator" on the left-hand side and select "Solution Definitions"
+18. Type "Solution Queries" in the "Filter Navigator" on the left-hand side and select "Solution Queries"
 
-19. Select the "Solution Definitions" menu item to open to list of "Solution Definitions"
+19. Select the "Solution Queries" menu item to open to list of "Solution Queries"
 
 20. Right-click the field headers and select "Import"
 
@@ -50,5 +50,5 @@ Apply Update Sets
 
 24. Scroll down to bottom, and select "Complete Import"
 
-25. Validate that there are over 200 "Solution Definitions"
+25. Validate that there are over 200 "Solution Queries"
 
