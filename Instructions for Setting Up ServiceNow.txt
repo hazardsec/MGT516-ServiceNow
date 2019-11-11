@@ -1,0 +1,54 @@
+Instructions for Setting Up ServiceNow
+Request Developer Instance
+1. Sign up for account at developer.servicenow.com
+
+2. Request an instance (From the "Home" screen, select "Request instance" on right-hand side; I used a London instance to develop the update sets; After a period of time, London may no longer be available and you may have to choose another instance type; Update sets should still work, but there is a small chance they will require changes)
+
+3. Log into instance with the credentials provided
+
+Install Plugins
+4. Type "Plugins" into the "Filter navigator" on the left-hand side and select "Plugins"
+
+5. In the "Go to" filter at the top select "Name" from the drop-down if not already selected, then type in "Vuln" and hit "Enter"
+
+6. Open the "Vulnerability Response" entry by clicking on it. Click "Activate/Repair" and make sure the "Load demo data" checkbox is selected then click "Activate"
+
+7. Once "Vulnerability Response is installed, perform steps 5 and 6 again for "Vulnerability Analytics" if available in that version of ServiceNow
+
+Apply Update Sets
+8. Type "Retrieved Update Sets" into the "Filter navigator" on the left-hand side and select "Retrieved Update Sets"
+
+9. Click "Import Update Set from XML"
+
+10. Click "Choose file"
+
+11. Browse to "MGT516-Global.xml"
+
+12. Click "Upload"
+
+13. Once uploaded, find and click on the retrieved update set (e.g. MGT516-Global, MGT516-Vulnerability)
+
+14. Click the "Preview Update Set" button
+
+15. If you get any errors/warnings, select "Accept remote update" for each item
+
+16. Click the "Commit Update Set Button
+
+17. Repeat steps 8 - 16 for "MGT516-Vulnerability.xml"
+
+18. Type "Solution Definitions" in the "Filter Navigator" on the left-hand side and select "Solution Definitions"
+
+19. Select the "Solution Definitions" menu item to open to list of "Solution Definitions"
+
+20. Right-click the field headers and select "Import"
+
+21. If the fields are all disabled on the new form, click the gear icon in the top right corner of the site header, select the "Developer" link in the left menu, and change the "Application" to "Vulnerability" then reload the "Import" form or repeat steps 18-20.
+
+22. Select the "Choose file" button, browse to the "sn_vul_solution_queries.xlsx" file, then select "Upload"
+
+23. Once import completes, click "Preview Imported Data"
+
+24. Scroll down to bottom, and select "Complete Import"
+
+25. Validate that there are over 200 "Solution Definitions"
+
